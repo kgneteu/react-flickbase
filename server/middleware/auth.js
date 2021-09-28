@@ -4,6 +4,7 @@ exports.checkToken = async function (req, res, next) {
     try {
         if (req.headers['x-access-token']) {
            let token = req.headers['x-access-token'];
+            //console.log(token)
            //expiration is validated automatically
            const {_id, email, exp} = jwt.verify(token,process.env.SECRET);
            //res.locals.userData = {_id, email, exp}
