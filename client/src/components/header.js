@@ -1,6 +1,6 @@
 import {AppBar, Button, IconButton, Toolbar, Typography, useTheme} from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu"
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -17,9 +17,9 @@ const useStyles = makeStyles((theme) =>
 );
 
 function Header(props) {
-    console.log(props)
+
     const theme = useTheme();
-    console.log(theme)
+
     const classes = useStyles();
     return (
         <AppBar position="static">

@@ -3,7 +3,6 @@ import {makeStyles} from "@material-ui/core/styles";
 import clsx from 'clsx';
 import {Dashboard, Home as HomeIcon, Mail as ContactIcon, VpnKey} from "@material-ui/icons"
 import React from "react";
-import * as PropTypes from "prop-types";
 import {ListItemLink} from "./UI/listItemLink";
 
 const useStyles = makeStyles({
