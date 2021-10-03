@@ -1,6 +1,6 @@
 import {Button, Card, CardActions, CardContent, CardMedia, IconButton, Typography} from "@material-ui/core";
 import {Favorite} from "@material-ui/icons";
-import RouterLink from './../utils/RouterLink';
+import RouterLink from '../../utils/routerLink';
 
 //56.25%'-> 16:9
 const ArticleCard = ({article}) => {

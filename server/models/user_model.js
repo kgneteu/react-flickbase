@@ -31,13 +31,11 @@ const UserSchema = new mongoose.Schema({
             type: String,
             maxlength: 40,
             trim: true,
-            required: true,
         },
         lastname: {
             type: String,
             maxlength: 60,
             trim: true,
-            required: true,
         },
         age: {
             type: Number,

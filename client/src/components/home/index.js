@@ -1,11 +1,8 @@
-import Header from "../header";
-import SideNavigation from "../sideNavigation";
 import {Button, Grid} from "@material-ui/core";
 import ArticleCard from "../UI/articleCard";
-import Layout from "../../hoc/layout";
 import {useEffect, useReducer} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Article} from "./../../store/actions"
+import {ArticleAction, ActionType} from "./../../store/actions"
 
 
 const initialState = {sortBy: "_id", order: "desc", limit: 8, skip: 0};
@@ -24,23 +21,20 @@ const Home = (props) => {
 
     useEffect(() => {
         if (articles && !articles.articles) {
-            dispatch(Article.getArticles(initialState));
-            console.log('init dispatch')
+            dispatch(ArticleAction.getArticles(initialState));
         }
     }, [dispatch, articles])
 
     const loadMoreHandler = () => {
         let skip = sort.skip + sort.limit;
-        dispatch(Article.getArticles({...sort,skip:skip}));
+        dispatch(ArticleAction.getArticles({...sort,skip:skip}));
         setSort({skip: skip})
     }
 
     return (
         <>
-            <Header/>
-            <SideNavigation/>
-            <Layout>
-                <Grid container spacing={2} className='article_card'>
+
+                <Grid container spacing={2}>
                     {articles && articles.articles &&
                     articles.articles.map( article => (
                         <Grid key={article._id} item xs={12} sm={6} lg={3}>
@@ -49,7 +43,7 @@ const Home = (props) => {
                     ))}
                 </Grid>
                 <Button onClick={loadMoreHandler}> Load more...</Button>
-            </Layout>
+
         </>
     );
 };

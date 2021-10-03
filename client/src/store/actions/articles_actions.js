@@ -1,6 +1,6 @@
 import * as ActionType from "./../actionTypes"
 import axios from 'axios';
-
+import {errorGlobal} from "./notification_actions";
 //axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 //axios.defaults.baseURL='http://localhost:3001';
@@ -39,9 +39,9 @@ export const getArticles = (sort) => {
             if(prevArts){
                 newArts = [...prevArts,...arts.data];
             }
-
             dispatch(setArticles(newArts))
         } catch (error) {
+            dispatch(errorGlobal('Error loading articles'))
             console.log(error)
         }
     }

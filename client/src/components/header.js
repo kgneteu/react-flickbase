@@ -1,11 +1,22 @@
-import {AppBar, Button, IconButton, Toolbar, Typography, useTheme} from "@material-ui/core";
+import {AppBar, Button, IconButton, Toolbar, Typography} from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu"
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import RouterLink from './../utils/routerLink'
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
+import {showToast} from "../utils/tools";
+import {clearNotification} from "../store/actions/notification_actions";
+import {signOutUser} from "../store/actions/user_actions";
+import 'react-toastify/dist/ReactToastify.css';
+import {withRouter} from "react-router-dom";
+import {appLayout} from "../store/actions/site_actions";
+import {AccountCircle, ExitToApp, VpnKey} from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) =>
     createStyles({
         root: {
             flexGrow: 1,
+
         },
         menuButton: {
             marginRight: theme.spacing(2),
@@ -13,27 +24,84 @@ const useStyles = makeStyles((theme) =>
         title: {
             flexGrow: 1,
         },
+        logo: {
+            fontFamily: 'Fredoka One',
+            color: 'white',
+            fontSize: 24,
+            textTransform: 'none',
+        }
     }),
 );
 
-function Header(props) {
+function Header({toggleMenu, signOutHandler, location}) {
 
-    const theme = useTheme();
+    const notifications = useSelector(state => state.notifications)
+    const dispatch = useDispatch()
+    const loggedIn = useSelector(state => state.user.auth)
+
+
+
+    useEffect(()=>{
+        if(notifications && notifications.error){
+            const msg = notifications.msg ? notifications.msg : 'Error';
+            showToast('ERROR',msg);
+            dispatch(clearNotification())
+        }
+        if(notifications && notifications.success){
+            const msg = notifications.msg ? notifications.msg : 'Error';
+            showToast('SUCCESS',msg);
+            dispatch(clearNotification())
+        }
+    },[notifications,dispatch])
+
+    useEffect(()=>{
+        console.log(location.pathname)
+        let pathArray = location.pathname.split('/')
+        if (pathArray[1]==='dashboard'){
+            dispatch(appLayout('dash_layout'))
+        } else {
+            dispatch(appLayout(''))
+        }
+    },[location.pathname])
+
+    //const theme = useTheme();
 
     const classes = useStyles();
     return (
         <AppBar position="static">
             <Toolbar>
-                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+
+
+                <Typography variant={'h6'} className={classes.title}>
+                    <Button component={RouterLink} to={'/'} className={classes.logo}>
+                        FlickBase
+                    </Button>
+                </Typography>
+                {loggedIn ?
+                    <IconButton color="inherit"
+                                title='Sign Out'
+                                onClick={signOutHandler}>
+                        <ExitToApp/>
+                        </IconButton>:
+                    <IconButton color="inherit"
+                                title='Sign In'
+                                component={RouterLink}
+                                to={'/auth'}>
+                        <AccountCircle/>
+                    </IconButton>
+                }
+
+                <IconButton edge="end"
+                            className={classes.menuButton}
+                            title='Menu'
+                            color="inherit" aria-label="menu"
+                            onClick={toggleMenu}
+                >
                     <MenuIcon/>
                 </IconButton>
-                <Typography variant="h6" className={classes.title}>
-                    News
-                </Typography>
-                <Button color="inherit">Login</Button>
             </Toolbar>
         </AppBar>
     );
 }
 
-export default Header;
+export default withRouter(Header);

@@ -1,3 +1,4 @@
 export * as ActionType from "./../actionTypes"
-export * as Article from './articles_actions'
-export * as User from './user_actions'
+export * as ArticleAction from './articles_actions'
+export * as UserAction from './user_actions'
+export * as SiteAction from './site_actions'

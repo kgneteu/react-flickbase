@@ -1,7 +1,7 @@
 import {ListItem} from "@material-ui/core";
-import {Link as RouterLink} from "react-router-dom";
 import React from "react";
 import * as PropTypes from "prop-types";
+import RouterLink from './../../utils/routerLink'
 
 export function ListItemLink({to, ...props}) {
     return (
