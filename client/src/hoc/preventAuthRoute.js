@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 import {Redirect} from "react-router-dom";
 
 
-export default (WrappedComponent) => {
+const PreventAuthRoute = (WrappedComponent) => {
 
     const PreventAuthCheck = (props) => {
         const isAuth = useSelector(state=>state.user.auth)
@@ -15,3 +15,5 @@ export default (WrappedComponent) => {
     }
     return PreventAuthCheck;
 }
+
+export default PreventAuthRoute;

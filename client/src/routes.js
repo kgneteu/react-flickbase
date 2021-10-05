@@ -1,7 +1,8 @@
-import {BrowserRouter, Route, Switch, useHistory} from "react-router-dom";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Home from "./components/home";
 import Auth from "./components/auth/auth";
 import Header from "./components/header";
+import Article from "./components/article";
 import SideNavigation from "./components/sideNavigation";
 import Layout from "./hoc/layout";
 import {useEffect, useState} from "react";
@@ -14,6 +15,7 @@ import Articles from "./components/dashboard/articles";
 import Profile from "./components/dashboard/profile";
 import AuthGuard from "./hoc/authGuard";
 import PreventAuthRoute from "./hoc/preventAuthRoute";
+import AddArticle from "./components/dashboard/articles/addArticle";
 
 
 // const theme = {
@@ -68,9 +70,10 @@ const Routes = ({props}) => {
             <Layout>
                 <Switch>
                     <Route path='/dashboard' component={AuthGuard(Dashboard)} exact/>
+                    <Route path='/dashboard/articles/add' component={AuthGuard(AddArticle,'admin')}/>
                     <Route path='/dashboard/articles' component={AuthGuard(Articles,'admin')}/>
                     <Route path='/dashboard/profile' component={AuthGuard(Profile)}/>
-
+                    <Route path='/article/:id' component={Article}/>
                     <Route path='/auth' component={PreventAuthRoute(Auth)}/>
                     <Route path='/' component={Home}/>
                 </Switch>

@@ -1,5 +1,8 @@
 // articles
 export const GET_ARTICLES = 'GET_ARTICLES'
+export const GET_ARTICLE = 'GET_ARTICLE'
+export const CLEAR_CURRENT_ARTICLE = 'CLEAR_CURRENT_ARTICLE'
+export const ADD_ARTICLE = 'ADD_ARTICLE'
 
 // notifications
 export const ERROR_GLOBAL = 'ERROR_GLOBAL';

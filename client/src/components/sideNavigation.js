@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import {Dashboard as DashboardIcon, Home as HomeIcon, Mail as ContactIcon, VpnKey} from "@material-ui/icons"
 import React from "react";
 import {ListItemLink} from "./UI/listItemLink";
-import {useDispatch, useSelector} from "react-redux";
+import { useSelector} from "react-redux";
 
 const useStyles = makeStyles({
     list: {
@@ -18,7 +18,6 @@ const useStyles = makeStyles({
 const SideNavigation = ({menuVisible, toggleMenu, signOutHandler}) => {
     const anchor = 'right';
     const classes = useStyles();
-    const dispatch = useDispatch();
     const isAuth = useSelector(state => state.user.auth);
     const list = (anchor) => (
         <div

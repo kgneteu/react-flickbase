@@ -1,6 +1,7 @@
 import * as ActionType from "./../actionTypes"
 import axios from 'axios';
-import {errorGlobal} from "./notification_actions";
+import {errorGlobal, successGlobal} from "./notification_actions";
+import {getAuthHeader} from "../../utils/tools";
 //axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 //axios.defaults.baseURL='http://localhost:3001';
@@ -32,12 +33,12 @@ const setArticles = (articles) => {
 export const getArticles = (sort) => {
     return async (dispatch, getState) => {
         try {
-            const arts  = await axios.post('/api/articles/load_more', sort);
+            const arts = await axios.post('/api/articles/load_more', sort);
             const prevArts = getState().articles.articles;
             let newArts = [...arts.data];
 
-            if(prevArts){
-                newArts = [...prevArts,...arts.data];
+            if (prevArts) {
+                newArts = [...prevArts, ...arts.data];
             }
             dispatch(setArticles(newArts))
         } catch (error) {
@@ -46,3 +47,48 @@ export const getArticles = (sort) => {
         }
     }
 };
+
+
+const getArticleDone = (article) => {
+    return {
+        type: ActionType.GET_ARTICLE,
+        payload: article,
+    }
+}
+
+
+export const getArticle = (id) => {
+    return async (dispatch) => {
+        try {
+            const article = await axios.get('/api/articles/' + id);
+            dispatch(getArticleDone(article.data[0]))
+        } catch (error) {
+            dispatch(errorGlobal('Error loading article'))
+            console.log(error)
+        }
+    }
+};
+
+export const clearCurrentArticle = () => {
+    return {
+        type: ActionType.CLEAR_CURRENT_ARTICLE,
+    }
+}
+
+export const addArticleSuccess = (article) => ({
+    type: ActionType.ADD_ARTICLE,
+    payload: article
+})
+
+
+export const addArticle = (article) => {
+    return async (dispatch) => {
+        try {
+            const request = await axios.post(`/api/articles/admin/add_article`, article, getAuthHeader());
+            dispatch(addArticleSuccess(request.data));
+            dispatch(successGlobal('Good obi one !!'))
+        } catch (error) {
+            dispatch(errorGlobal(error.response.data.message))
+        }
+    }
+}

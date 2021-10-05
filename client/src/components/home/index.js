@@ -2,7 +2,7 @@ import {Button, Grid} from "@material-ui/core";
 import ArticleCard from "../UI/articleCard";
 import {useEffect, useReducer} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {ArticleAction, ActionType} from "./../../store/actions"
+import {ArticleAction} from "./../../store/actions"
 
 
 const initialState = {sortBy: "_id", order: "desc", limit: 8, skip: 0};
