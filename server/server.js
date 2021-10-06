@@ -19,6 +19,7 @@ mongoose.connect(mongoURI, err => {
     console.log("Connected to MongoDB...")
 })
 
+app.use(express.static('client/build'))
 const port = process.env.port || 3001
 app.listen(port, () => {
     console.log(`Server is listening on ${port}`)
