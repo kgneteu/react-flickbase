@@ -77,3 +77,45 @@ export const signOutUser = () => {
        }
    }
 }
+
+export const updateUserProfileSuccess = (userdata) => ({
+    type: ActionType.UPDATE_USER_PROFILE,
+    payload: userdata
+})
+
+export const updateUserProfile = (data) =>{
+    return async(dispatch,getState)=>{
+        try{
+            const profile = await axios.patch(`/api/users/profile`,data,getAuthHeader());
+            const userData = {
+                ...getState().user.data,
+                ...profile.data
+            }
+            dispatch(updateUserProfileSuccess(userData));
+            dispatch(successGlobal('Profile updated'))
+        } catch(error){
+            dispatch(errorGlobal(error.response.data.message))
+        }
+    }
+}
+
+export const changeUserEmailSuccess = (data) => ({
+    type: ActionType.CHANGE_USER_EMAIL,
+    payload: data
+})
+
+export const changeEmail = (data) =>{
+    return async(dispatch)=>{
+        try{
+            await axios.patch(`/api/users/update_email`,{
+                email: data.email,
+                newemail: data.newemail
+            },getAuthHeader());
+
+            dispatch(changeUserEmailSuccess(data.newemail))
+            dispatch(successGlobal('Good job!!'))
+        } catch(error){
+            dispatch(errorGlobal(error.response.data.message))
+        }
+    }
+}

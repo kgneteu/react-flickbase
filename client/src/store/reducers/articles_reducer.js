@@ -11,6 +11,15 @@ export default function articleReducer(state = {}, action) {
             return {...state, article: null}
         case ActionType.ADD_ARTICLE:
             return {...state, lastAdded: action.payload, success:true }
+        case ActionType.GET_ADMIN_ARTICLES:
+            return {...state, adminArticles: action.payload }
+        case ActionType.UPDATE_ARTICLE_STATUS:
+            return { ...state,
+                adminArticles:{
+                    ...state.adminArticles,
+                    docs: action.payload
+                }
+            }
         default:
             return state
     }

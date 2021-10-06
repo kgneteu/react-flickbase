@@ -8,6 +8,8 @@ export default function notificationReducer(state={},action){
             return { ...state, success: true, msg:action.payload }
         case ActionType.CLEAR_NOTIFICATION:
             return {}
+        case ActionType.REMOVE_ARTICLE:
+            return {...state,removeArticle: true }
         default:
             return state
     }

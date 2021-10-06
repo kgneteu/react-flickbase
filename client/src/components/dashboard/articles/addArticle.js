@@ -92,6 +92,7 @@ const AddArticle = (props) => {
                     {...formik.getFieldProps('title')}
                     {...fieldProps(formik, 'title')}
                 />
+
                 <div className="form-group">
                     <WYSIWYG
                         setEditorState={(state)=> handleEditorState(state)}
@@ -127,9 +128,7 @@ const AddArticle = (props) => {
                 <h5>Movie data and score</h5>
 
                 <TextField
-
                     label="Enter a score"
-
                     {...formik.getFieldProps('score')}
                     {...fieldProps(formik, 'score')}
                 />

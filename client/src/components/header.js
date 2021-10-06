@@ -46,7 +46,7 @@ function Header({toggleMenu, signOutHandler, location}) {
             dispatch(clearNotification())
         }
         if (notifications && notifications.success) {
-            const msg = notifications.msg ? notifications.msg : 'Error';
+            const msg = notifications.msg ? notifications.msg : 'OK!';
             showToast('SUCCESS', msg);
             dispatch(clearNotification())
         }

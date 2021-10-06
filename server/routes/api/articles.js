@@ -31,6 +31,7 @@ router.route('/admin/:id')
     })
     .patch(checkLoggedIn, grantAccess('updateAny', 'article'), async (req, res) => {
         try {
+            console.log(req.body)
             const article = await Article.findByIdAndUpdate(
                 req.params.id,
                 {
@@ -40,13 +41,14 @@ router.route('/admin/:id')
                     }
                 }, {
                     new: true,
-                    runValidators: true,
+                    runValidators: false,
                 }
             )
             if (!article) return res.status(400).json({message: "Article not found."})
             res.json(article)
         } catch (e) {
             res.status(400).json({message: 'Invalid article.', error: e})
+            console.log(e)
         }
     })
     .delete(checkLoggedIn, grantAccess('deleteAny', 'article'), async (req, res) => {
@@ -61,7 +63,6 @@ router.route('/admin/:id')
 
 router.route('/:id').get(async (req, res) => {
     try {
-        console.log(req.params.id)
         const article = await Article.find({_id: req.params.id, status: 'public'})
         if (!article || article.length === 0) return res.status(400).json({message: "Article not found."})
         res.json(article)

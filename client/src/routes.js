@@ -15,6 +15,7 @@ import Articles from "./components/dashboard/articles";
 import Profile from "./components/dashboard/profile";
 import AuthGuard from "./hoc/authGuard";
 import PreventAuthRoute from "./hoc/preventAuthRoute";
+import EditArticle from "./components/dashboard/articles/editArticle";
 import AddArticle from "./components/dashboard/articles/addArticle";
 
 
@@ -70,6 +71,7 @@ const Routes = ({props}) => {
             <Layout>
                 <Switch>
                     <Route path='/dashboard' component={AuthGuard(Dashboard)} exact/>
+                    <Route path="/dashboard/articles/edit/:id" component={AuthGuard(EditArticle,'admin')}/>
                     <Route path='/dashboard/articles/add' component={AuthGuard(AddArticle,'admin')}/>
                     <Route path='/dashboard/articles' component={AuthGuard(Articles,'admin')}/>
                     <Route path='/dashboard/profile' component={AuthGuard(Profile)}/>
