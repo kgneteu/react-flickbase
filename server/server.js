@@ -28,8 +28,9 @@ if (process.env.NODE_ENV === 'production'){
   })
 
 }
-const port = process.env.port || 3001
-app.listen(port, () => {
-    console.log(`Server is listening on ${port}`)
+const port = process.env.PORT || 3001
+const server_host = process.env.YOUR_HOST || '0.0.0.0';
+app.listen(port, server_host,() => {
+    console.log(`Server is listening on ${port} nad host ${server_host}`)
 })
 
