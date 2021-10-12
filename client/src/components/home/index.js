@@ -47,38 +47,5 @@ const Home = (props) => {
         </>
     );
 };
-//
-// const Home = (props) => {
-//     const [options, setOptions] = useState(initialState);
-//     const articles = useSelector(state => state.articles.articles)
-//     const dispatch = useDispatch();
-//
-//     useEffect(() => {
-//         dispatch(Article.getArticles(options));
-//         console.log(1)
-//     }, [dispatch, options])
-//
-//     const loadMoreHandler = () => {
-//         console.log(2)
-//         const newOptions = {...options, limit: options.limit+8};
-//         setOptions(newOptions);
-//     }
-//
-//     return (
-//         <>
-//             <Header/>
-//             <SideNavigation/>
-//             <Layout>
-//                 <Grid container spacing={2} className='article_card'>
-//                     {articles && articles.map(article => (
-//                         <Grid key={article._id} item xs={12} sm={6} lg={3}>
-//                             <ArticleCard article={article}/>
-//                         </Grid>
-//                     ))}
-//                 </Grid>
-//                 <Button onClick={loadMoreHandler}> Load more...</Button>
-//             </Layout>
-//         </>
-//     );
-// };
+
 export default Home;

@@ -24,8 +24,9 @@ export const UPDATE_USER_PROFILE = 'UPDATE_USER_PROFILE';
 export const CHANGE_USER_EMAIL = 'CHANGE_USER_EMAIL';
 
 // site
-
 export const SITE_LAYOUT = 'SITE_LAYOUT';
 
-
+//categories
+export const GET_CATEGORIES = 'GET_CATEGORIES';
+export const ADD_CATEGORY = 'ADD_CATEGORY';
 

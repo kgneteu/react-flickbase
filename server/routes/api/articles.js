@@ -2,6 +2,7 @@ const express = require("express");
 const {checkLoggedIn} = require("../../middleware/auth");
 const {grantAccess} = require("../../middleware/roles");
 const {Article} = require("../../models/article_model");
+const {Category} = require("../../models/category_model");
 const {sortArgsHelper} = require("../../config/helpers");
 let router = express.Router();
 
@@ -61,15 +62,6 @@ router.route('/admin/:id')
         }
     })
 
-router.route('/:id').get(async (req, res) => {
-    try {
-        const article = await Article.find({_id: req.params.id, status: 'public'})
-        if (!article || article.length === 0) return res.status(400).json({message: "Article not found."})
-        res.json(article)
-    } catch (e) {
-        res.status(400).json({message: 'Error fetching articles.', error: e})
-    }
-})
 
 router.route('/load_more').post(async (req, res) => {
     try {
@@ -109,4 +101,35 @@ router.route('/admin/paginate')
             res.status(400).json({message: 'Invalid article.', error: e})
         }
     })
+
+router.route("/categories")
+    .get(async (req, res) => {
+        try {
+            const categories = await Category.find();
+            res.status(200).json(categories);
+        } catch (error) {
+            res.status(400).json({message: "Error getting categories", error})
+        }
+    })
+    .post(checkLoggedIn, grantAccess('createAny', 'categories'), async (req, res) => {
+        try {
+            const category = new Category(req.body);
+            await category.save()
+            res.status(200).json(category);
+        } catch (error) {
+            console.log(error.message)
+            res.status(400).json({message: "Error adding categories", error})
+        }
+    });
+
+router.route('/id/:id').get(async (req, res) => {
+    try {
+        const article = await Article.find({_id: req.params.id, status: 'public'})
+        if (!article || article.length === 0) return res.status(400).json({message: "Article not found."})
+        res.json(article)
+    } catch (e) {
+        res.status(400).json({message: 'Error fetching articles.', error: e})
+    }
+})
+
 module.exports = router

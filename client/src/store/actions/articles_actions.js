@@ -61,7 +61,7 @@ const getArticleDone = (article) => {
 export const getArticle = (id) => {
     return async (dispatch) => {
         try {
-            const article = await axios.get('/api/articles/' + id);
+            const article = await axios.get('/api/articles/id/' + id);
             dispatch(getArticleDone(article.data[0]))
         } catch (error) {
             dispatch(errorGlobal('Error loading article'))

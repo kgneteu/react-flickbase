@@ -16,12 +16,13 @@ const PaginationComponent = ({arts, next, handleStatusChange, handleShow, editAr
         <>
             {arts && arts.docs ?
                 <>
-                    <Table striped bordered hover>
+                    <Table>
                         <TableHead>
                             <TableRow>
                                 <TableCell>Created</TableCell>
                                 <TableCell>Tittle</TableCell>
                                 <TableCell>Score</TableCell>
+                                <TableCell/>
                             </TableRow>
                         </TableHead>
                         <TableBody>

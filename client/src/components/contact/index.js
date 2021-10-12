@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import {Loader} from "../../utils/loader";
 import {useDispatch, useSelector} from "react-redux";
 import {contact} from "../../store/actions/user_actions";
+import {fieldProps} from "../../utils/tools";
 
 const ContactForm = (props) => {
     const [loading, setLoading] = useState(false);
@@ -32,18 +33,7 @@ const ContactForm = (props) => {
     }, [notifications, formik]);
 
 
-    function fieldProps(formik, name, label) {
-        return {
-            ...formik.getFieldProps(name),
-            variant: 'outlined',
-            fullWidth: true,
-            error: Boolean(formik.errors[name] && formik.touched[name]),
-            helperText: formik.errors[name] && formik.touched[name] && formik.errors[name],
-            name: name,
-            margin: 'normal',
-            label: label,
-        };
-    }
+
 
     if (loading) return <Loader/>
     return (

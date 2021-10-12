@@ -3,7 +3,7 @@ import AdminLayout from "../../hoc/adminLayout";
 const Dashboard = (props) => {
     return (
         <AdminLayout section="Dashboard">
-          dashboard
+          Dashboard is empty.
         </AdminLayout>
     );
 };

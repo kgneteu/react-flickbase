@@ -6,10 +6,10 @@ import {useSelector} from "react-redux";
 const AdminLayout = (props) => {
     const user = useSelector(state => state.user)
     return (
-        <div className="adminLayout">
-            <Grid container spacing={0} alignItems={'stretch'}>
+        <Grid container direction={'column'} className="adminLayout" style={{minHeight: 'calc(100vh - 112px)'}}>
+            <Grid container item style={{flexGrow: 1, flexWrap: 'nowrap'}} spacing={0} >
                 <Grid item>
-                    <Box sx={{bgcolor: 'palevioletred', p: 3, height: '100%'}}>
+                    <Box sx={{p: 3, height: '100%', bgcolor: '#cccccc'}}>
                         <List>
                             <ListItem button component={RouterLink} to="/dashboard">
                                 <ListItemText primary="Dashboard"/>
@@ -20,6 +20,10 @@ const AdminLayout = (props) => {
                             {user.data.role === 'admin' &&
                             <ListItem button component={RouterLink} to="/dashboard/articles">
                                 <ListItemText primary="Articles"/>
+                            </ListItem>}
+                            {user.data.role === 'admin' &&
+                            <ListItem button component={RouterLink} to="/dashboard/categories">
+                                <ListItemText primary="Categories"/>
                             </ListItem>}
                         </List>
                     </Box>
@@ -33,7 +37,7 @@ const AdminLayout = (props) => {
                     </Container>
                 </Grid>
             </Grid>
-        </div>
+        </Grid>
     )
 }
 

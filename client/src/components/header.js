@@ -66,7 +66,7 @@ function Header({toggleMenu, signOutHandler, location}) {
 
     const classes = useStyles();
     return (
-        <AppBar position="static" color={'primary'}>
+        <AppBar>
             <Toolbar>
                 <Typography variant={'h6'} className={classes.title}>
                     <Button component={RouterLink} to={'/'} className={classes.logo}>

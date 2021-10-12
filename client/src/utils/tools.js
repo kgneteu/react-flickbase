@@ -23,3 +23,16 @@ export const removeTokenCookie = () => cookie.remove('x-access-token');
 export const getAuthHeader = () => ({ headers: {'x-access-token': getTokenCookie()}})
 //export const getAuthHeader = { headers: {'x-access-token': getTokenCookie()}}
 
+export function fieldProps(formik, name, label) {
+    return {
+        ...formik.getFieldProps(name),
+        variant: 'outlined',
+        fullWidth: true,
+        error: Boolean(formik.errors[name] && formik.touched[name]),
+        helperText: formik.errors[name] && formik.touched[name] && formik.errors[name],
+        name: name,
+        margin: 'normal',
+        label: label,
+    };
+}
+
