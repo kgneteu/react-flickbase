@@ -12,7 +12,7 @@ const ArticleCard = ({article}) => {
                 title={"Some title"}>
 
             </CardMedia>
-            <CardContent>
+            <CardContent style={{height: '10.5rem'}}>
                 <Typography gutterBottom variant={'h5'}>
                     {article.title}
                 </Typography>
@@ -24,7 +24,8 @@ const ArticleCard = ({article}) => {
                 <IconButton>
                     <Favorite/>
                 </IconButton>
-                <Button size={'small'} color={'primary'} component={RouterLink} to={`/article/${article._id}`}>View Article</Button>
+                <Button size={'small'} color={'primary'} component={RouterLink} to={`/article/${article._id}`}>View
+                    Article</Button>
             </CardActions>
         </Card>
     );

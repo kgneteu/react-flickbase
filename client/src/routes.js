@@ -17,8 +17,8 @@ import AuthGuard from "./hoc/authGuard";
 import PreventAuthRoute from "./hoc/preventAuthRoute";
 import EditArticle from "./components/dashboard/articles/editArticle";
 import AddArticle from "./components/dashboard/articles/addArticle";
-
-
+import ContactForm from "./components/contact/index";
+import Verification from './components/auth/verfification'
 // const theme = {
 //     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
 // };
@@ -77,6 +77,8 @@ const Routes = ({props}) => {
                     <Route path='/dashboard/profile' component={AuthGuard(Profile)}/>
                     <Route path='/article/:id' component={Article}/>
                     <Route path='/auth' component={PreventAuthRoute(Auth)}/>
+                    <Route path='/contact' component={ContactForm}/>
+                    <Route path='/verification' component={Verification}/>
                     <Route path='/' component={Home}/>
                 </Switch>
             </Layout>

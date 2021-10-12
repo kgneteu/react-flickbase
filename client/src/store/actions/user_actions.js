@@ -8,7 +8,7 @@ export const registerUser = (userData) => {
         try{
             const {email, password} = userData;
             const user = (await axios.post('/api/users/register', {email, password}));
-            dispatch(authUser({data: user.data, auth: true}))
+            dispatch(authUser({data: user.data, auth: false}))
             dispatch(successGlobal('Welcome! Check your email and validate your account.'))
         } catch (e) {
             if (e.response.data.message) {
@@ -114,6 +114,28 @@ export const changeEmail = (data) =>{
 
             dispatch(changeUserEmailSuccess(data.newemail))
             dispatch(successGlobal('Good job!!'))
+        } catch(error){
+            dispatch(errorGlobal(error.response.data.message))
+        }
+    }
+}
+
+export const contact = (data) => {
+    return async(dispatch)=>{
+        try{
+            await axios.post(`/api/users/contact`,data);
+            dispatch(successGlobal('We will contact you back'))
+        } catch(error){
+            dispatch(errorGlobal(error.response.data.message))
+        }
+    }
+}
+export const accountVerify = (token) => {
+    return async(dispatch)=>{
+        try{
+            const user = await axios.post(`/api/users/verify_register_token`,{token: token});
+            dispatch(authUser({data: user.data, auth: true}))
+            dispatch(successGlobal('Your account has been confimed!'))
         } catch(error){
             dispatch(errorGlobal(error.response.data.message))
         }

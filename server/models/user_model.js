@@ -11,11 +11,6 @@ const UserSchema = new mongoose.Schema({
             unique: true,
             required: true,
             lowercase: true,
-            // validate(value) {
-            //     if (!validator.isEmail(value)) {
-            //         throw new Error('Invalid email')
-            //     }
-            // }
             validate: {validator: value => validator.isEmail(value), message: "Wrong e-mail format"},
         },
         password: {
@@ -42,10 +37,16 @@ const UserSchema = new mongoose.Schema({
             min: 5,
             max: 120,
         },
+        verified: {
+            type: Boolean,
+            default: false,
+        },
+
         date: {
             type: Date,
             default: Date.now,
         },
+
     }, // { timestamps: true,
     // collection: "DifferentName"}
 )
@@ -72,6 +73,14 @@ UserSchema.methods.generateToken = function () {
         email: user.email,
     }
     return jwt.sign(userObj, process.env.SECRET, {expiresIn: '1d'})
+}
+
+UserSchema.methods.generateRegisterToken = function () {
+    const user = this;
+    const userObj = {
+        _id: user._id.toHexString(),
+    }
+    return jwt.sign(userObj, process.env.SECRET, {expiresIn: '10h'})
 }
 
 UserSchema.methods.comparePassword = async function (candidatePassword) {

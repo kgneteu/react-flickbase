@@ -20,7 +20,6 @@ import WYSIWYG from "../../UI/wysiwyg";
 import {useDispatch, useSelector} from "react-redux";
 import {addArticle} from "../../../store/actions/articles_actions";
 import {useHistory} from "react-router-dom";
-import {logBlockedSelectionEvent} from "draft-js/lib/DraftJsDebugLogging";
 import {Loader} from "../../../utils/loader";
 
 function SubmitButton({children, ...props}) {

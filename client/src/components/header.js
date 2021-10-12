@@ -1,4 +1,4 @@
-import {AppBar, Button, IconButton, Toolbar, Typography} from "@material-ui/core";
+import {AppBar, Button, IconButton, Toolbar, Typography, useTheme} from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu"
 import {createStyles, makeStyles} from '@material-ui/core/styles';
 import RouterLink from './../utils/routerLink'
@@ -10,12 +10,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import {withRouter} from "react-router-dom";
 import {appLayout} from "../store/actions/site_actions";
 import {AccountCircle, ExitToApp} from "@material-ui/icons";
+import { withTheme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) =>
     createStyles({
         root: {
             flexGrow: 1,
-
         },
         menuButton: {
             marginRight: theme.spacing(2),
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) =>
         },
         logo: {
             fontFamily: 'Fredoka One',
-            color: 'white',
+            color: 'black',
             fontSize: 24,
             textTransform: 'none',
         }
@@ -37,7 +37,7 @@ function Header({toggleMenu, signOutHandler, location}) {
     const notifications = useSelector(state => state.notifications)
     const dispatch = useDispatch()
     const loggedIn = useSelector(state => state.user.auth)
-
+    const theme = useTheme();
 
     useEffect(() => {
         if (notifications && notifications.error) {
@@ -62,14 +62,12 @@ function Header({toggleMenu, signOutHandler, location}) {
         }
     }, [location.pathname, dispatch])
 
-    //const theme = useTheme();
+
 
     const classes = useStyles();
     return (
-        <AppBar position="static">
+        <AppBar position="static" color={'primary'}>
             <Toolbar>
-
-
                 <Typography variant={'h6'} className={classes.title}>
                     <Button component={RouterLink} to={'/'} className={classes.logo}>
                         FlickBase
@@ -102,4 +100,4 @@ function Header({toggleMenu, signOutHandler, location}) {
     );
 }
 
-export default withRouter(Header);
+export default withRouter(withTheme(Header));

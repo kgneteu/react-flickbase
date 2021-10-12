@@ -1,13 +1,8 @@
-import React,{ useState, useEffect} from 'react'
-
-//// wysiwyg
-import { EditorState, ContentState } from 'draft-js';
+import React,{ useState} from 'react'
+import { EditorState } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
 import { Editor } from 'react-draft-wysiwyg';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-
-/// edit
-import htmlToDraft from 'html-to-draftjs';
 
 const WYSIWYG = (props) => {
     const [editorData, setEditorData] = useState({
@@ -24,7 +19,6 @@ const WYSIWYG = (props) => {
 
         props.setEditorState(HTMLdata)
     }
-
 
     return(
         <div>

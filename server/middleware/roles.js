@@ -12,6 +12,7 @@ module.exports.grantAccess = function (action, resource) {
                 return res.status(400).json({error: "Not allowed."})
             }
             res.locals.permission = permission;
+            //console.log(permission)
             // store permission for Fine-Grained Access Control
             // attributes: [ '*', '!password' ],
             // role: 'user',

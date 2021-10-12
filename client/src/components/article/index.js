@@ -31,8 +31,8 @@ const Article = () => {
     return (
         <Box>
             <h1>{article.title}</h1>
-            <img src={"http://loremflickr.com/1920/1080"} style={{width: '100%', height: 'auto'}}/>
-            <p>{article.content}</p>
+            <img src={"http://loremflickr.com/1920/1080"} alt={article.title} style={{width: '100%', height: 'auto'}}/>
+            <p dangerouslySetInnerHTML={{__html:article.content}}/>
             <ScoreCard current={article}/>
         </Box>
     );

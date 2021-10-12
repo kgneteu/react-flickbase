@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
-import {Box, Container, Dialog, DialogContent, FormGroup, Modal, TextField} from '@material-ui/core';
+import {Box, Container, Dialog, DialogContent, FormGroup, TextField} from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import EmailStepper from "./stepper/emailStepper";
 
