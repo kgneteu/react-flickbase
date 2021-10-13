@@ -10,16 +10,19 @@ export default function articleReducer(state = {}, action) {
         case ActionType.CLEAR_CURRENT_ARTICLE:
             return {...state, article: null}
         case ActionType.ADD_ARTICLE:
-            return {...state, lastAdded: action.payload, success:true }
+            return {...state, lastAdded: action.payload, success: true}
         case ActionType.GET_ADMIN_ARTICLES:
-            return {...state, adminArticles: action.payload }
+            return {...state, adminArticles: action.payload}
         case ActionType.UPDATE_ARTICLE_STATUS:
-            return { ...state,
-                adminArticles:{
+            return {
+                ...state,
+                adminArticles: {
                     ...state.adminArticles,
                     docs: action.payload
                 }
             }
+        case ActionType.SEARCH_ARTICLES:
+            return {...state, userSearch: action.payload}
         default:
             return state
     }

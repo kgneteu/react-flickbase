@@ -1,14 +1,14 @@
-import {AppBar, Button, IconButton, Toolbar, Typography, useTheme} from "@material-ui/core";
+import {AppBar, Button, IconButton, Toolbar, Typography} from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu"
 import {createStyles, makeStyles} from '@material-ui/core/styles';
-import RouterLink from './../utils/routerLink'
+import RouterLink from '../../utils/routerLink'
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {showToast} from "../utils/tools";
-import {clearNotification} from "../store/actions/notification_actions";
+import {showToast} from "../../utils/tools";
+import {clearNotification} from "../../store/actions/notification_actions";
 import 'react-toastify/dist/ReactToastify.css';
 import {withRouter} from "react-router-dom";
-import {appLayout} from "../store/actions/site_actions";
+import {appLayout} from "../../store/actions/site_actions";
 import {AccountCircle, ExitToApp} from "@material-ui/icons";
 import { withTheme } from '@material-ui/core/styles';
 
@@ -37,7 +37,6 @@ function Header({toggleMenu, signOutHandler, location}) {
     const notifications = useSelector(state => state.notifications)
     const dispatch = useDispatch()
     const loggedIn = useSelector(state => state.user.auth)
-    const theme = useTheme();
 
     useEffect(() => {
         if (notifications && notifications.error) {

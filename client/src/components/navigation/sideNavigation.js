@@ -1,10 +1,12 @@
-import {Divider, List, ListItem, ListItemIcon, ListItemText, SwipeableDrawer, TextField} from "@material-ui/core";
+import {Divider, List, ListItem, ListItemIcon, ListItemText, SwipeableDrawer} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import clsx from 'clsx';
 import {Dashboard as DashboardIcon, Home as HomeIcon, Mail as ContactIcon, VpnKey} from "@material-ui/icons"
 import React from "react";
-import {ListItemLink} from "./UI/listItemLink";
+import {ListItemLink} from "../UI/listItemLink";
 import { useSelector} from "react-redux";
+import * as PropTypes from "prop-types";
+import NavSearch from "./navSearch";
 
 const useStyles = makeStyles({
     list: {
@@ -15,6 +17,8 @@ const useStyles = makeStyles({
     },
 });
 
+
+NavSearch.propTypes = {onClose: PropTypes.func};
 const SideNavigation = ({menuVisible, toggleMenu, signOutHandler}) => {
     const anchor = 'right';
     const classes = useStyles();
@@ -69,10 +73,9 @@ const SideNavigation = ({menuVisible, toggleMenu, signOutHandler}) => {
                 open={menuVisible}
                 onClose={() => toggleMenu(false)}
                 onOpen={() => toggleMenu(true)}>
-                <form style={{margin: 20}}>
-                    <TextField id={"outlined-basic"} label={"Search movie"} variant={"outlined"}/>
-                </form>
+
                 <Divider/>
+                <NavSearch onClose={()=>toggleMenu(false)}/>
                 {list(anchor)}
             </SwipeableDrawer>
         </React.Fragment>

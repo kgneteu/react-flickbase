@@ -134,4 +134,36 @@ router.route('/id/:id').get(async (req, res) => {
     }
 })
 
+router.route('/search')
+    .get(async (req, res) => {
+        try {
+            const keywords = req.query.keywords;
+
+            if (keywords === '') res.status(400).json({message: 'Empty search.', error: e})
+            const limit = req.query.limit ? req.query.limit : 5;
+            const page = req.query.page ? req.query.page : 0;
+
+            function escapeRegExp(string) {
+                return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+            }
+            const re = new RegExp(escapeRegExp(keywords), 'gi' );
+
+            const aggQuery = Article.aggregate(
+                [
+                    {$match: {status: 'public'}},
+                    {$match: {title: {$regex: re }}}
+                ]
+            );
+            const options = {
+                limit: limit,
+                page: page,
+                sort: {"_id": "desc"},
+            }
+            const articles = await Article.aggregatePaginate(aggQuery, options)
+            res.json(articles)
+        } catch (e) {
+            res.status(400).json({message: 'Error fetching articles.', error: e})
+        }
+    })
+
 module.exports = router

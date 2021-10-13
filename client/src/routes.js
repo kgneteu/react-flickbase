@@ -1,9 +1,9 @@
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Home from "./components/home";
 import Auth from "./components/auth/auth";
-import Header from "./components/header";
+import Header from "./components/navigation/header";
 import Article from "./components/article";
-import SideNavigation from "./components/sideNavigation";
+import SideNavigation from "./components/navigation/sideNavigation";
 import Layout from "./hoc/layout";
 import {useEffect, useState} from "react";
 import GoogleFontLoader from "react-google-font-loader";
@@ -20,16 +20,9 @@ import AddArticle from "./components/dashboard/articles/addArticle";
 import ContactForm from "./components/contact/index";
 import Verification from './components/auth/verfification'
 import Categories from "./components/dashboard/categories";
-// const theme = {
-//     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-// };
+import SearchPage from "./components/article/searchPage";
 
-// let theme = createTheme({
-//     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-// });
-
-
-const Routes = ({props}) => {
+const Routes = () => {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
     const [menuVisisble, setMenuVisisble] = useState(false);
@@ -81,6 +74,7 @@ const Routes = ({props}) => {
                     <Route path='/auth' component={PreventAuthRoute(Auth)}/>
                     <Route path='/contact' component={ContactForm}/>
                     <Route path='/verification' component={Verification}/>
+                    <Route path='/search' component={SearchPage}/>
                     <Route path='/' component={Home}/>
                 </Switch>
             </Layout>
