@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {contact} from "../../store/actions/user_actions";
 import {fieldProps} from "../../utils/tools";
 
-const ContactForm = (props) => {
+const ContactForm = () => {
     const [loading, setLoading] = useState(false);
     const notifications = useSelector(state => state.notifications)
     const dispatch = useDispatch();
