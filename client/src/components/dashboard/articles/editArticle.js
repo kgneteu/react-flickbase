@@ -1,56 +1,54 @@
-import React,{ useState,useEffect,useRef } from 'react';
-import { useFormik, FieldArray, FormikProvider } from 'formik';
-import { useDispatch, useSelector } from 'react-redux';
-import { validation, formValues } from './validationSchema';
-
-
-
-import {
-    TextField,
-    Button,
-    Divider,
-    Chip,
-    Paper,
-    InputBase,
-    IconButton,
-    Select,
-    MenuItem,
-    FormControl,
-    FormHelperText, FormGroup
-} from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
+import React, {useEffect, useRef, useState} from 'react';
+import {FieldArray, FormikProvider, useFormik} from 'formik';
+import {useDispatch, useSelector} from 'react-redux';
+import {formValues, validation} from './validationSchema';
 import {Loader} from "../../../utils/loader";
 import {clearCurrentArticle, getAdminArticle, updateArticle} from "../../../store/actions/articles_actions";
 import AdminLayout from "../../../hoc/adminLayout";
+import {getCategories} from "../../../store/actions/categories_actions";
+import {
+    Chip, Divider,
+    FormControl,
+    FormGroup,
+    FormHelperText, IconButton,
+    InputBase,
+    MenuItem,
+    Paper,
+    Select,
+    TextField
+} from "@material-ui/core";
+import SubmitButton from "../../UI/submitButton";
 import WYSIWYG from "../../UI/wysiwyg";
+import AddIcon from '@material-ui/icons/Add';
 
 const EditArticle = (props) => {
     const dispatch = useDispatch();
-    const notifications = useSelector(state=>state.notifications);
-    const articles = useSelector(state=>state.articles);
+    const notifications = useSelector(state => state.notifications);
+    const articles = useSelector(state => state.articles);
+    const categories = useSelector(state => state.categories.categories);
 
 
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [editorBlur,setEditorBlur] = useState(false);
-    const [formData,setFormData] = useState(formValues);
+    const [editorBlur, setEditorBlur] = useState(false);
+    const [formData, setFormData] = useState(formValues);
     const actorsValue = useRef('');
-    const [editContent,setEditContent] = useState(null);
-
-
+    const [editContent, setEditContent] = useState(null);
 
     const formik = useFormik({
         enableReinitialize: true,
-        initialValues:formData,
-        validationSchema:validation,
-        onSubmit:(values,{resetForm}) =>{
+        initialValues: formData,
+        validationSchema: validation,
+        onSubmit: (values, {resetForm}) => {
+
             setIsSubmitting(true);
             dispatch(updateArticle(values, props.match.params.id))
-        }
+        },
+
     });
 
 
-    const handleEditorState = (state) =>{
-        formik.setFieldValue('content',state, true)
+    const handleEditorState = (state) => {
+        formik.setFieldValue('content', state, true)
     }
 
     const handleEditorBlur = (blur) => {
@@ -58,33 +56,38 @@ const EditArticle = (props) => {
     }
 
 
-    useEffect(()=>{
-        if(notifications && notifications.success){
+    useEffect(() => {
+        if (notifications && notifications.success) {
             props.history.push('/dashboard/articles');
         }
-        if(notifications && notifications.error){
-        setIsSubmitting(false);
-          }
-    },[notifications,props.history])
+        if (notifications && notifications.error) {
+            setIsSubmitting(false);
+        }
+    }, [notifications, props.history])
 
     //// edit ///
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getAdminArticle(props.match.params.id))
-    },[dispatch, props.match.params])
+    }, [dispatch, props.match.params])
 
-    useEffect(()=>{
-        if(articles && articles.article){
+    useEffect(() => {
+        if (articles && articles.article) {
             setFormData(articles.article);
             setEditContent(articles.article.content)
         }
-    },[articles])
+    }, [articles])
     /// edit ///
 
-    useEffect(()=>{
-        return()=>{
+    useEffect(() => {
+        return () => {
             dispatch(clearCurrentArticle());
         }
-    },[dispatch])
+    }, [dispatch])
+
+
+    useEffect(() => {
+        dispatch(getCategories());
+    }, [dispatch])
 
     function fieldProps(formik, title) {
         return {
@@ -97,16 +100,16 @@ const EditArticle = (props) => {
         }
     }
 
-    if (!articles.article){
+    if (!articles.article) {
         return <Loader/>
     }
 
-    return(
+    return (
         <AdminLayout section="Edit article">
-            { isSubmitting ?
+            {isSubmitting ?
                 <Loader/>
                 :
-                <form className="mt-3 article_form" onSubmit={formik.handleSubmit}>
+                <form onSubmit={formik.handleSubmit}>
 
                     <TextField
                         label="Enter a title"
@@ -146,6 +149,30 @@ const EditArticle = (props) => {
                     />
 
                     <Divider className="mt-3 mb-3"/>
+                    <FormControl variant="outlined">
+                        <h5>Select a category</h5>
+                        <Select
+                            name="category"
+                            {...formik.getFieldProps('category')}
+                            error={formik.errors.category && formik.touched.category ? true : false}
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            {categories ?
+                                categories.map((item) => (
+                                    <MenuItem key={item._id} value={item._id}>
+                                        {item.name}
+                                    </MenuItem>
+                                ))
+                                : null}
+                        </Select>
+                        {formik.errors.category && formik.touched.category ?
+                            <FormHelperText error={true}>
+                                {formik.errors.category}
+                            </FormHelperText>
+                            : null}
+                    </FormControl>
 
                     <h5>Movie data and score</h5>
 
@@ -203,7 +230,6 @@ const EditArticle = (props) => {
                     </FormikProvider>
 
 
-
                     <div className="form-group">
                         <TextField
                             label="Enter a director"
@@ -231,17 +257,10 @@ const EditArticle = (props) => {
                             </FormHelperText>
                             :null}
                     </FormControl>
-
-                    <Divider className="mt-3 mb-3"/>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        type="submit"
-                        // disabled={false}
-                    >
-                        Update article
-                    </Button>
-
+                    {/*onClick={() => setEditorBlur(true)}*/}
+                    <div className="form-group">
+                        <SubmitButton onClick={() => setEditorBlur(true)}>Update article</SubmitButton>
+                    </div>
                 </form>
             }
 

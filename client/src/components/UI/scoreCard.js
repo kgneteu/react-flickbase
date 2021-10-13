@@ -11,7 +11,7 @@ import {
 import MovieIcon from '@material-ui/icons/Movie';
 import PersonIcon from '@material-ui/icons/Person';
 import StarIcon from '@material-ui/icons/Star';
-
+import CategoryIcon from '@material-ui/icons/Category';
 
 const ScoreCard = ({current}) => {
 
@@ -54,8 +54,15 @@ const ScoreCard = ({current}) => {
                 </ListItemAvatar>
                 <ListItemText primary="Director" secondary={current.director}/>
             </ListItem>
-
-
+            {/* vategory */}
+            {current.category?.name &&
+            <ListItem>
+                <ListItemAvatar>
+                    <Avatar><CategoryIcon/></Avatar>
+                </ListItemAvatar>
+                <ListItemText primary="Category" secondary={current.category.name}/>
+            </ListItem>
+            }
         </List>
     )
 }

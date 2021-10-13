@@ -67,6 +67,7 @@ router.route('/load_more').post(async (req, res) => {
     try {
         const {sortBy, order, limit, skip} = sortArgsHelper(req.body);
         const articles = await Article.find({status: 'public'})
+            .populate('category')
             .sort([[sortBy, order]])
             .skip(skip)
             .limit(limit)
@@ -125,6 +126,7 @@ router.route("/categories")
 router.route('/id/:id').get(async (req, res) => {
     try {
         const article = await Article.find({_id: req.params.id, status: 'public'})
+            .populate('category')
         if (!article || article.length === 0) return res.status(400).json({message: "Article not found."})
         res.json(article)
     } catch (e) {

@@ -85,6 +85,7 @@ export const addArticleSuccess = (article) => ({
 export const addArticle = (article) => {
     return async (dispatch) => {
         try {
+
             const request = await axios.post(`/api/articles/admin/add_article`, article, getAuthHeader());
             dispatch(addArticleSuccess(request.data));
             dispatch(successGlobal('Good obi one !!'))

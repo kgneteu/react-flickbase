@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const aggregatePaginate = require("mongoose-aggregate-paginate")
-
+const Schema = require("mongoose")
 const ArticleSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -40,6 +40,11 @@ const ArticleSchema = new mongoose.Schema({
         enum: ['draft', 'public'],
         default: 'draft',
         index: true,
+    },
+    category: {
+        type: Schema.Types.ObjectId,
+        ref: 'Category',
+        required: true,
     },
     date: {
         type: Date,

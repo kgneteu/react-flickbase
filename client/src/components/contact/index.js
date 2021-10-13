@@ -12,7 +12,12 @@ const ContactForm = (props) => {
     const notifications = useSelector(state => state.notifications)
     const dispatch = useDispatch();
     const formik = useFormik({
-        initialValues: {},
+        initialValues: {
+            email:'',
+            firstname:'',
+            lastname:'',
+            message:'',
+        },
         validationSchema: yup.object({
             email: yup.string().email().required(),
             firstname: yup.string().max(60).required(),
@@ -26,23 +31,23 @@ const ContactForm = (props) => {
     })
 
     useEffect(() => {
-        if (notifications) {
+        if (notifications && notifications.success) {
             setLoading(false)
             formik.resetForm();
+        } else if (notifications && notifications.error) {
+            setLoading(false)
         }
     }, [notifications, formik]);
-
-
 
 
     if (loading) return <Loader/>
     return (
         <Container maxWidth={'xs'}>
             <form onSubmit={formik.handleSubmit}>
-                <TextField required {...fieldProps(formik, 'email', 'Enter your email')}/>
-                <TextField required {...fieldProps(formik, 'firstname', 'Enter your first name')}/>
-                <TextField required {...fieldProps(formik, 'lastname', 'Enter your last name')}/>
-                <TextField required {...fieldProps(formik, 'message', 'Enter your message')}
+                <TextField {...fieldProps(formik, 'email', 'Enter your email')}/>
+                <TextField {...fieldProps(formik, 'firstname', 'Enter your first name')}/>
+                <TextField {...fieldProps(formik, 'lastname', 'Enter your last name')}/>
+                <TextField {...fieldProps(formik, 'message', 'Enter your message')}
                            rows={5} multiline
                 />
                 <Button variant={'contained'} size={'large'} color={'primary'} type={'submit'}>Send</Button>

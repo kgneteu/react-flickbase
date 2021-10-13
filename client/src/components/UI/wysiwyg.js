@@ -1,8 +1,10 @@
-import React,{ useState} from 'react'
+    import React,{ useState} from 'react'
 import { EditorState } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
 import { Editor } from 'react-draft-wysiwyg';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import {InputLabel, Paper} from "@material-ui/core";
+import {InputOutlined} from "@material-ui/icons";
 
 const WYSIWYG = (props) => {
     const [editorData, setEditorData] = useState({
@@ -21,7 +23,8 @@ const WYSIWYG = (props) => {
     }
 
     return(
-        <div>
+        <Paper variant={'outlined'}>
+            <InputLabel variant={'standard'} shrink={true}>{props.label}</InputLabel>
             <Editor
                 editorState={editorData.editorState}
                 onEditorStateChange={onEditorStateChange}
@@ -29,7 +32,7 @@ const WYSIWYG = (props) => {
                 editorClassName="demo-editor"
                 onBlur={props.setEditorBlur}
             />
-        </div>
+        </Paper>
     )
 
 }
