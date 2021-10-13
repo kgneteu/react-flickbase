@@ -5,40 +5,43 @@ import {useEffect, useState} from "react";
 import {changeStatusArticle, getPaginateArticles, removeArticle} from "../../../store/actions/articles_actions";
 import {
     Button,
-    ButtonGroup,
     Dialog,
     DialogActions,
     DialogContent,
     FormControl,
     FormGroup,
-    Paper
+    Grid,
+    InputAdornment,
+    Paper,
+    TextField
 } from "@material-ui/core";
 import {Link as RouterLink, useHistory} from 'react-router-dom';
+import SearchIcon from '@material-ui/icons/Search';
 
-
-const Articles = (props) => {
+const Articles = () => {
     const articles = useSelector(state => state.articles);
     const dispatch = useDispatch();
     const [removeAlert, setRemoveAlert] = useState(false);
     const [toRemove, setToRemove] = useState(null)
-    const notifications = useSelector(state=>state.notifications)
+    const notifications = useSelector(state => state.notifications)
     const history = useHistory();
+    const [keywords, setKeywords] = useState('');
     let arts = articles.adminArticles;
+    let delayedSearch;
 
     useEffect(() => {
         setRemoveAlert(false)
         if (notifications && notifications.removeArticle) {
-            dispatch(getPaginateArticles())
+            dispatch(getPaginateArticles(keywords))
         }
-    }, [dispatch, notifications, arts])
+    }, [dispatch, notifications, arts, keywords])
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getPaginateArticles())
-    },[dispatch])
+    }, [dispatch])
 
 
     const editArtsAction = (id) => {
-        console.log(`/dashboard/articles/edit/${id}`)
         history.push(`/dashboard/articles/edit/${id}`)
     }
 
@@ -59,21 +62,47 @@ const Articles = (props) => {
     }
 
     const goToNextPage = (page) => {
-        dispatch(getPaginateArticles(page))
+        dispatch(getPaginateArticles({page, keywords}))
     }
 
+    const searchChangeHandler = (event) => {
+        event.preventDefault();
+        clearTimeout(delayedSearch);
+        const kw = event.target.value;
+        delayedSearch = setTimeout(() => {
+            //console.log(kw)
+            setKeywords(kw);
+            dispatch(getPaginateArticles({keywords: kw}))
+        }, 300)
+    }
     return (
         <AdminLayout section="Articles">
             <div className="articles_table">
                 <div className="mb-3">
-                    <ButtonGroup>
-                        <Button variant="outlined"
-                                color={'secondary'}
-                                component={RouterLink}
-                                to={'/dashboard/articles/add'}>
+                    <Grid container>
+                        <Button
+                            variant={'outlined'}
+                            style={{marginRight: '1rem'}}
+                            color={'secondary'}
+                            component={RouterLink}
+                            to={'/dashboard/articles/add'}>
                             Add article
                         </Button>
-                    </ButtonGroup>
+                        <TextField
+                            variant={'outlined'}
+                            size={'small'}
+                            placeholder={'search...'}
+                            onChange={searchChangeHandler}
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <SearchIcon/>
+                                    </InputAdornment>
+                                ),
+                            }}
+                        />
+
+                    </Grid>
                     <form onSubmit={() => alert('search')}>
                         <FormGroup>
                             {/*<InputGroup.Prepend>*/}
@@ -91,7 +120,7 @@ const Articles = (props) => {
                     arts={arts}
                     next={(page) => goToNextPage(page)}
                     handleStatusChange={(status, id) => handleStatusChange(status, id)}
-                    editArticle = {(id)=> editArtsAction(id)}
+                    editArticle={(id) => editArtsAction(id)}
                     handleShow={id => handleShow(id)}
                 />
 

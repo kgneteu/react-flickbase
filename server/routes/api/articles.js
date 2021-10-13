@@ -6,6 +6,10 @@ const {Category} = require("../../models/category_model");
 const {sortArgsHelper} = require("../../config/helpers");
 let router = express.Router();
 
+function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+}
+
 router.route('/admin/add_article')
     .post(checkLoggedIn, grantAccess('createAny', 'article'), async (req, res) => {
         try {
@@ -81,12 +85,18 @@ router.route('/admin/paginate')
     .post(checkLoggedIn, grantAccess('readAny', 'articles'), async (req, res) => {
         try {
             const limit = req.body.limit ? req.body.limit : 5;
-            const aggQuery = Article.aggregate();
-            // Search example
-            // const aggQuery = Article.aggregate([
-            //     {$match: {status: 'public'}},
-            //     {$match: {title: {$regex: /^pulp/i }}}
-            // ]);
+            let aggQuery;
+            if (req.body.keywords && req.body.keywords!=='') {
+                const re = new RegExp(escapeRegExp(req.body.keywords),'gi')
+                aggQuery = Article.aggregate([
+                    {$match: {title: {$regex: re }}}
+                ]);
+                //console.log(req.body.keywords)
+            } else {
+                //console.log('empty')
+                aggQuery = Article.aggregate();
+            }
+
             const options = {
                 limit: limit,
                 page: req.body.page,
@@ -143,15 +153,14 @@ router.route('/search')
             const limit = req.query.limit ? req.query.limit : 5;
             const page = req.query.page ? req.query.page : 0;
 
-            function escapeRegExp(string) {
-                return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
-            }
-            const re = new RegExp(escapeRegExp(keywords), 'gi' );
+
+
+            const re = new RegExp(escapeRegExp(keywords), 'gi');
 
             const aggQuery = Article.aggregate(
                 [
                     {$match: {status: 'public'}},
-                    {$match: {title: {$regex: re }}}
+                    {$match: {title: {$regex: re}}}
                 ]
             );
             const options = {

@@ -21,7 +21,7 @@ const SearchPage = () => {
         if (keywords !== '') {
             dispatch(searchArticles(keywords))
         }
-    }, [keywords])
+    }, [keywords, dispatch])
 
     useEffect(() => {
         if (articles && articles.docs) {

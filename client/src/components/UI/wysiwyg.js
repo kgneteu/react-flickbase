@@ -4,7 +4,7 @@ import { stateToHTML } from 'draft-js-export-html';
 import { Editor } from 'react-draft-wysiwyg';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import {InputLabel, Paper} from "@material-ui/core";
-import {InputOutlined} from "@material-ui/icons";
+
 
 const WYSIWYG = (props) => {
     const [editorData, setEditorData] = useState({

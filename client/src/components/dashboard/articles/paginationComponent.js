@@ -28,19 +28,19 @@ const PaginationComponent = ({arts, next, handleStatusChange, handleShow, editAr
                         <TableBody>
                             {arts.docs.map((item) => (
                                 <TableRow key={item._id}>
-                                    <TableCell><Moment to={item.date}></Moment></TableCell>
+                                    <TableCell><Moment to={item.date}/></TableCell>
                                     <TableCell>{item.title}</TableCell>
                                     <TableCell>{item.score}</TableCell>
                                     <TableCell>
-                                        <ButtonGroup color={'primary'} >
+                                        <ButtonGroup color={'primary'}>
                                             <Button
-                                                onClick={()=>editArticle(item._id)}
+                                                onClick={() => editArticle(item._id)}
                                                 startIcon={<EditIcon/>}>Edit</Button>
                                             <Button
-                                                onClick={()=>handleShow(item._id)}
+                                                onClick={() => handleShow(item._id)}
                                                 startIcon={<DeleteIcon/>}>Delete</Button>
                                             <Button
-                                                onClick={()=>handleStatusChange(item.status, item._id)}
+                                                onClick={() => handleStatusChange(item.status, item._id)}
                                                 startIcon={<AssistantPhotoIcon/>}>{item.status}</Button>
                                         </ButtonGroup>
                                     </TableCell>
@@ -49,10 +49,12 @@ const PaginationComponent = ({arts, next, handleStatusChange, handleShow, editAr
                         </TableBody>
                     </Table>
 
-                    <Pagination count={arts.pages}
-                                color="primary"
-                                page={arts.page}
-                                onChange={handleChange}
+                    <Pagination
+                        style={{marginTop: '1rem'}}
+                        count={arts.pages}
+                        color="primary"
+                        page={arts.page}
+                        onChange={handleChange}
                     >
                     </Pagination>
                 </>

@@ -85,12 +85,15 @@ export const getPaginateArticlesSuccess = (articles) => ({
     payload: articles
 })
 
-export const getPaginateArticles = (page = 1, limit = 5) => {
+export const getPaginateArticles = (options = {}) => {
+    const {page = 1, limit = 5, keywords = ''} = options;
+
     return async (dispatch) => {
         try {
             const request = await axios.post(`/api/articles/admin/paginate`, {
                 page,
-                limit
+                limit,
+                keywords
             }, getAuthHeader());
 
             dispatch(getPaginateArticlesSuccess(request.data))
@@ -175,7 +178,7 @@ const searchArticlesDone = (articles) => {
 export const searchArticles = (keywords) => {
     return async (dispatch) => {
         try {
-            const articles = await axios.get('/api/articles/search?keywords='+encodeURIComponent(keywords));
+            const articles = await axios.get('/api/articles/search?keywords=' + encodeURIComponent(keywords));
             dispatch(searchArticlesDone(articles.data))
         } catch (error) {
             dispatch(errorGlobal('Error loading articles'))

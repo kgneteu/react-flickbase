@@ -4,13 +4,12 @@ import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
 import {getCategories} from "../../../store/actions/categories_actions";
 import {Loader} from "../../../utils/loader";
-import {Link as RouterLink} from "react-router-dom";
 import AddCategoryDialog from "./addCategoryDialog";
 import Moment from "react-moment";
 
 
 
-const Categories = (props) => {
+const Categories = () => {
     const dispatch = useDispatch();
     const categories = useSelector(state => state.categories.categories)
     const [loading, setLoading] = useState(true);
@@ -48,7 +47,7 @@ const Categories = (props) => {
                 <TableBody>
                     {(categories) && categories.map(category => (
                         <TableRow key={category._id}>
-                            <TableCell><Moment to={category.date}></Moment></TableCell>
+                            <TableCell><Moment to={category.date}/></TableCell>
                             <TableCell>{category.name}</TableCell>
                         </TableRow>
                     ))}
