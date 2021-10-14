@@ -20,6 +20,7 @@ import AddArticle from "./components/dashboard/articles/addArticle";
 import ContactForm from "./components/contact/index";
 import Verification from './components/auth/verfification'
 import Categories from "./components/dashboard/categories";
+import TestUpload from "./components/dashboard/testupload";
 import SearchPage from "./components/article/searchPage";
 
 const Routes = () => {
@@ -70,6 +71,7 @@ const Routes = () => {
                     <Route path='/dashboard/articles' component={AuthGuard(Articles,'admin')}/>
                     <Route path='/dashboard/categories' component={AuthGuard(Categories,'admin')}/>
                     <Route path='/dashboard/profile' component={AuthGuard(Profile)}/>
+                    <Route path="/dashboard/testupload" component={AuthGuard(TestUpload)}/>
                     <Route path='/article/:id' component={Article}/>
                     <Route path='/auth' component={PreventAuthRoute(Auth)}/>
                     <Route path='/contact' component={ContactForm}/>

@@ -25,6 +25,10 @@ const AdminLayout = (props) => {
                             <ListItem button component={RouterLink} to="/dashboard/categories">
                                 <ListItemText primary="Categories"/>
                             </ListItem>}
+                            {user.data.role === 'admin' &&
+                            <ListItem button component={RouterLink} to="/dashboard/testupload">
+                                <ListItemText primary="File Upload"/>
+                            </ListItem>}
                         </List>
                     </Box>
                 </Grid>
