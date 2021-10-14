@@ -41,11 +41,11 @@ EMAIL_MAIN_URL = http://localhost:3000/
 SITE_DOMAIN = http://localhost:3000/
 
 ### Variables description:
-DATABASE - your MongoDb connection string
-SECRET - a string used to generate JWT tokens (should be unique)
-EMAIL_PASSWORD - password for your Google Account (in the form of a token generated on the Google account page)
-EMAIL - your e-mail address
-EMAIL_MAIN_URL - your site's domain used in the generated emails
-SITE_DOMAIN - site domain name
+- DATABASE - your MongoDb connection string
+- SECRET - a string used to generate JWT tokens (should be unique)
+- EMAIL_PASSWORD - password for your Google Account (in the form of a token generated on the Google account page)
+- EMAIL - your e-mail address
+- EMAIL_MAIN_URL - your site's domain used in the generated emails
+- SITE_DOMAIN - site domain name
 
 
