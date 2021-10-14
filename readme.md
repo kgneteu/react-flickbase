@@ -33,10 +33,10 @@ Movie database written in React. It is a fullstack application that demonstrates
 In order to work properly, the project requires setting of several environment variables. We put these variables in the .env file (development environment), and then we have to set them in the production environment (the configuration depends on the server we use).
 The following is an example of the contents of the .env file:
 
-DATABASE = mongodb+srv://admin:example@balah.s52fb.mongodb.net/myFirstDatabase?RetryWrites=true&w=majority \
+DATABASE = mongodb+srv://admin:example<span>@</span>balah.s52fb.mongodb.net/myFirstDatabase?RetryWrites=true&w=majority \
 SECRET = SomeSecretet!!! \
 EMAIL_PASSWORD = dddddds \
-EMAIL=example@gmail.com</br> \
+EMAIL=example<span>@</span>gmail.com \
 EMAIL_MAIN_URL = ht<span>tp</span>://localhost:3000/ \
 SITE_DOMAIN = ht<span>tp</span>://localhost:3000/"</br> \
 
