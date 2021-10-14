@@ -18,14 +18,20 @@ const getArticlesDone = (articles) => {
 export const getArticles = (sort) => {
     return async (dispatch, getState) => {
         try {
+
+            const prevArts = getState().articles?.articles?.docs;
+            if (prevArts) {
+                sort.skip = prevArts.length;
+            }
             const arts = await axios.post('/api/articles/load_more', sort);
-            const prevArts = getState().articles.articles;
             let newArts = [...arts.data];
 
             if (prevArts) {
                 newArts = [...prevArts, ...arts.data];
             }
-            dispatch(getArticlesDone(newArts))
+            const nomore = arts.data.length <= 0;
+
+            dispatch(getArticlesDone({docs: newArts, nomore: nomore}))
         } catch (error) {
             dispatch(errorGlobal('Error loading articles'))
             console.log(error)
