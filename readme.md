@@ -38,7 +38,7 @@ SECRET = SomeSecretet!!! \
 EMAIL_PASSWORD = dddddds \
 EMAIL=example<span>@</span>gmail.com \
 EMAIL_MAIN_URL = ht<span>tp</span>://localhost:3000/ \
-SITE_DOMAIN = ht<span>tp</span>://localhost:3000/"</br> \
+SITE_DOMAIN = ht<span>tp</span>://localhost:3000/" \
 
 ### Variables description:
 - DATABASE - your MongoDb connection string
