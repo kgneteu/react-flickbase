@@ -26,6 +26,7 @@ export const CHANGE_USER_EMAIL = 'CHANGE_USER_EMAIL';
 
 // site
 export const SITE_LAYOUT = 'SITE_LAYOUT';
+export const SITE_TEST = 'SITE_TEST';
 
 //categories
 export const GET_CATEGORIES = 'GET_CATEGORIES';

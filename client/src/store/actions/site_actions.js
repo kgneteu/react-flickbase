@@ -11,3 +11,10 @@ export const appLayout = (layout) => {
         dispatch(siteLayout(layout))
     };
 }
+
+export const siteTest = (value) => {
+    return dispatch => {
+        setTimeout(()=>dispatch({type: ActionType.SITE_TEST, payload: value}),10000)
+        //
+    }
+}
