@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+## Table of contents
+- [Description](#description)
+- [Technologies](#technologies)
+- [Setup](#setup)
+- [Config](#config)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
+## Decription <a name="description"></a>
+Movie database written in React. It is a fullstack application that demonstrates the use of several important functionalities:
+- user authorization (with email verification)
+- dashboard that allows you to manage the list of articles and their categories
+- using GMail in the Node
+- infinite scroll and many more
 
-### `yarn start`
+## Technologies <a name="technologies"></a>
+- React
+- Mongo / Mongoose
+- Node
+- Express
+- Material-ui
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Setup <a name="setup"></a>
+- Create your own Mongo database
+- Clone this repository
+- run <code>npm install</code> in the main project directory
+- change dir to <code>client</code> directory and run <code>npm install</code> again
+- change dir to root directory
+- create <code>.env</code> file and put in it the data described in the config section
+- run npm run dev - to run this project in development mode
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Config <a name="config"></a>
+In order to work properly, the project requires setting of several environment variables. We put these variables in the .env file (development environment), and then we have to set them in the production environment (the configuration depends on the server we use).
+The following is an example of the contents of the .env file:
 
-### `yarn test`
+DATABASE = mongodb+srv://admin:example<span>@</span>balah.s52fb.mongodb.net/myFirstDatabase?RetryWrites=true&w=majority \
+SECRET = SomeSecretet!!! \
+EMAIL_PASSWORD = dddddds \
+EMAIL=example<span>@</span>gmail.com \
+EMAIL_MAIN_URL = ht<span>tp</span>://localhost:3000/ \
+SITE_DOMAIN = ht<span>tp</span>://localhost:3000/
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Variables description:
+- DATABASE - your MongoDb connection string
+- SECRET - a string used to generate JWT tokens (should be unique)
+- EMAIL_PASSWORD - password for your Google Account (in the form of a token generated on the Google account page)
+- EMAIL - your e-mail address
+- EMAIL_MAIN_URL - your site's domain used in the generated emails
+- SITE_DOMAIN - site domain name

@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
 const mongoose = require('mongoose');
-
 const config = require('./config/config').config();
 
 const users = require("./routes/api/users")
@@ -33,7 +32,7 @@ if (process.env.NODE_ENV === 'production') {
 
 }
 const port = process.env.PORT || 3001
-const server_host = process.env.YOUR_HOST || '0.0.0.0';
+const server_host = process.env.HOST || '0.0.0.0';
 app.listen(port, server_host, () => {
     console.log(`Server is listening on ${port} nad host ${server_host}`)
 })
